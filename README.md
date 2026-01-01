@@ -37,11 +37,11 @@
 
 | ໜ້າຕ່າງສົນທະນາ (Chat Interface) | ໜ້າຄວບຄຸມຫຼັກ (Admin Dashboard) |
 | :---: | :---: |
-| ![Chat UI](data/m/A1.png) <br> *ໜ້າແຊັດຫຼັກ ຮອງຮັບພາສາລາວສົມບູນແບບ* | ![Admin Main](data/m/A2.png) <br> *ປັບແຕ່ງນິໄສ ແລະ ອາລົມຂອງ AI* |
+| ![Chat UI](data/m/A4.png) <br> *ໜ້າແຊັດຫຼັກ ຮອງຮັບພາສາລາວສົມບູນແບບ* | ![Admin Main](data/m/A2.png) <br> *ປັບແຕ່ງນິໄສ ແລະ ອາລົມຂອງ AI* |
 
 | ການຈັດການຂໍ້ມູນ (Knowledge Base) | ການຕັ້ງຄ່າ AI (AI Brain Settings) |
 | :---: | :---: |
-| ![Knowledge Management](data/m/A3.png) <br> *ເພີ່ມ/ລົບ/ແກ້ໄຂ ສຸດຍອດຄວາມຮູ້ຂອງ AI* | ![AI Config](data/m/A4.png) <br> *ເລືອກ Model ແລະ ຕັ້ງຄ່າ API Keys* |
+| ![Knowledge Management](data/m/A3.png) <br> *ເພີ່ມ/ລົບ/ແກ້ໄຂ ສຸດຍອດຄວາມຮູ້ຂອງ AI* | ![AI Config](data/m/A1.png) <br> *ເລືອກ Model ແລະ ຕັ້ງຄ່າ API Keys* |
 
 ---
 
