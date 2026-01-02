@@ -8,13 +8,17 @@ from difflib import SequenceMatcher
 
 # Path Calculation
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_DIR = os.path.dirname(CURRENT_DIR) 
-DATA_DIR = os.path.join(BASE_DIR, "data")
+# System/src -> System
+SYSTEM_DIR = os.path.dirname(CURRENT_DIR)
+# System -> Project Root
+PROJECT_ROOT = os.path.dirname(SYSTEM_DIR)
+
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 BACKUP_DIR = os.path.join(DATA_DIR, "backups")
 
-# Add project_folder to sys.path to allow importing models
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
+# Add System folder to sys.path to allow importing src
+if SYSTEM_DIR not in sys.path:
+    sys.path.append(SYSTEM_DIR)
 
 from src.models.ollama_client import OllamaClient
 from src.models.gemini_client import GeminiClient

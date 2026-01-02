@@ -142,3 +142,15 @@ Project/
 ## 📝 ລິຂະສິດ (License)
 ໂປຣເຈັກນີ້ເຜີຍແຜ່ພາຍໃຕ້ **MIT License**.
 *ພັດທະນາໂດຍ: Khamla & The AI Team*
+
+## 🛠️ One-Click Installation (Windows)
+
+For a fresh installation on a new machine:
+
+1.  **Install**:
+    *   Double-click **`install.bat`**.
+    *   It will automatically check for Python, create a virtual environment, and install all dependencies.
+
+2.  **Run**:
+    *   To start the **Chat Bot**, double-click **`run_chat.bat`**.
+    *   To start the **Admin Panel**, double-click **`run_admin.bat`**.
