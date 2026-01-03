@@ -61,19 +61,41 @@ class EmotionManager:
 
         styled = response_text
         
-        # Tone
+        # 1. Personality Prefixes/Suffixes
+        if personality == "ຄູສອນ":
+            if not styled.startswith("[ຄູ]"):
+                styled = f"[ຄູ]: {styled}"
+        elif personality == "ເພື່ອນ":
+            styled = styled.replace("ຂ້ອຍ", "ເຮົາ").replace("ເຈົ້າ", "ໂຕ")
+        elif personality == "ບອດໜ້າຮັກ":
+            styled = styled.replace("ຂ້ອຍ", "ນ້ອງບອດ").replace("ເຈົ້າ", "ອ້າຍ")
+
+        # 2. Tone Adjustments
         if tone == "ໜ້າຮັກ":
             styled = styled.replace(".", "~").replace("!", "!!")
-            if "ຂ້ອຍ" in styled: styled = styled.replace("ຂ້ອຍ", "ພວກເຮົາ")
-            styled += " ເຈົ້າ~"
+            if not styled.endswith("~"):
+                styled += " ເຈົ້າ~"
+        elif tone == "ເປັນກັນເອງ":
+            styled = styled.replace("ຂ້ອຍ", "ເຮົາ").replace("ເຈົ້າ", "ໂຕ")
+            if random.random() > 0.7:
+                styled += " ນ່າ"
+
+        # 3. Mood Emojis (Detailed)
+        emoji_map = {
+            "ມີຄວາມສຸກ": ["😊", "😄", "✨", "🎉", "💖"],
+            "ເສົ້າ": ["😔", "😢", "💔", "...", "🌧️"],
+            "ຕື່ນເຕັ້ນ": ["🤩", "🔥", "🚀", "😲", "‼️"],
+            "ສະຫງົບ": ["😌", "🍵", "🍃", "🧘", "🕊️"],
+            "ທົ່ວໄປ": [] # No specific emojis for neutral
+        }
         
-        # Mood
-        if mood == "ມີຄວາມສຸກ": styled += f" {random.choice(['😊', '😄', '✨'])}"
-        elif mood == "ເສົ້າ": styled += " ... 😔"
-        
-        # Personality
-        if personality == "ຄູສອນ": styled = f"[ຄູ]: {styled}"
-        elif personality == "ເພື່ອນ": styled = f"[ເພື່ອນ]: {styled}"
+        target_emojis = emoji_map.get(mood, [])
+        if target_emojis:
+            # Chance to add emojis based on empathy level (1-10) -> 10% to 100% chance
+            if random.randint(1, 10) <= empathy:
+                count = random.randint(1, 2) # Add 1 or 2 emojis
+                chosen = random.sample(target_emojis, min(len(target_emojis), count))
+                styled += " " + " ".join(chosen)
         
         return styled
 
@@ -199,8 +221,9 @@ class ChatBot:
                     HISTORY_CONTEXT = "\n".join(self.conversation_history)
                     prompt = (
                         f"Instructions: You are a helpful AI Assistant. \n"
-                        f"I have a short answer from my database: '{local_ans}'. \n"
+                        f"I have an answer from my database: '{local_ans}'. \n"
                         f"Please rewrite this answer to be more polite, natural, and helpful. \n"
+                        f"IMPORTANT: Please expand on the answer. Add relevant details or explanations to make it comprehensive.\n"
                         f"{lang_instruction}\n"
                         f"Constraint: Do NOT provide Romanized pronunciation in parentheses. \n"
                         f"Constraint: Do not use 'Ka/Krap' slash format. Speak naturally. \n"
@@ -244,7 +267,8 @@ class ChatBot:
             prompt = (
                 f"Instructions: You are a helpful AI Assistant. \n"
                 f"You have access to a local knowledge base (provided below). \n"
-                f"Use that information if relevant, otherwise use general knowledge. \n"
+                f"Use that information as a starting point, but please EXPAND on it. \n"
+                f"Provide a detailed, comprehensive, and helpful response. \n"
                 f"{lang_instruction}\n"
                 f"Constraint: Do NOT provide Romanized pronunciation. Write ONLY the script.\n"
                 f"Constraint: Speak naturally. Avoid mechanical repetitive greetings.\n\n"

@@ -11,6 +11,25 @@ try:
 except ImportError:
     from engine import ChatBot
 
+
+class CopyableLabel(QLabel):
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        self.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        self.setCursor(Qt.IBeamCursor)
+    
+    def contextMenuEvent(self, event):
+        from PyQt5.QtWidgets import QMenu, QAction
+        menu = QMenu(self)
+        copy_action = QAction("ຄັດລອກ (Copy)", self)
+        copy_action.triggered.connect(self.copy_text)
+        menu.addAction(copy_action)
+        menu.exec_(event.globalPos())
+        
+    def copy_text(self):
+        clipboard = QApplication.clipboard()
+        clipboard.setText(self.text())
+
 class ChatAppQt(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -130,7 +149,7 @@ class ChatAppQt(QMainWindow):
         row_layout.setContentsMargins(0, 0, 0, 0)
         
         # Bubble Frame (Label inside)
-        bubble = QLabel(message)
+        bubble = CopyableLabel(message)
         bubble.setWordWrap(True)
         # Max width 60-70% of window
         bubble.setMaximumWidth(int(self.scroll_area.width() * 0.7))
